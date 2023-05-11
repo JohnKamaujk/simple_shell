@@ -1,3 +1,5 @@
+#include "shell.h"
+
 /**
  * _stringtokenize - tokenizes  string
  * @string: the string to be tokenized
