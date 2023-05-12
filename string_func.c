@@ -37,3 +37,50 @@ char *_stringtokenize(char *string, const char *delimeter)
 	}
 	return (token);
 }
+
+/**
+  * _stringcompare - Compares two different strings
+  * @str1: The first string
+  * @str2: The second string
+  *
+  * Return: int value 1 when same , 0 false
+  */
+
+
+int _stringcompare(char *str1, char *str2)
+{
+	int i = 0, j = 0, k = 0;
+	int ret;
+	int limit;
+
+	while (str1[i])
+	{
+		i++;
+	}
+	while (str2[j])
+	{
+		j++;
+	}
+	if (i <= j)
+	{
+		limit = i;
+	}
+	else
+	{
+		limit = j;
+	}
+	while (k <= limit)
+	{
+		if (str1[k] == str2[k])
+		{
+			k++;
+			continue;
+		}
+		else
+		{
+			ret = str1[k] - str2[k];
+			break;
+		}
+	}
+	return (ret);
+}
