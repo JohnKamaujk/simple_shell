@@ -84,3 +84,25 @@ int _stringcompare(char *str1, char *str2)
 	}
 	return (ret);
 }
+
+/**
+ * stringtrim - removes trailing whitespace from string
+ * @strin:string
+ *
+ * Return: trimmed string
+ */
+
+char *stringtrim(char *strin)
+{
+	char *end_of;
+
+	while (isspace((unsigned char)*strin))
+		strin++;
+	if (*strin == '\0')
+		return (strin);
+	end_of = strin + strlen(strin) - 1;
+	while (end_of > strin && isspace((unsigned char)*end_of))
+		end_of--;
+	end_of[1] = '\0';
+	return (strin);
+}
