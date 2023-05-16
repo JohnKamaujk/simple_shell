@@ -17,4 +17,10 @@ char *_stringtokenize(char *string, const char *delimeter);
 int _stringcompare(char *str1, char *str2);
 char *stringtrim(char *strin);
 
+/* from get_line */
+ssize_t getline(char **linepointer, size_t *ptr, FILE *stream);
+
+#define MAX_INPUT_LENGTH 256
+#define BUFF_SIZE 1024
+
 #endif /* SHELL_H */
