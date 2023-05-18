@@ -20,6 +20,9 @@ char *stringtrim(char *strin);
 /* from get_line */
 ssize_t getline(char **linepointer, size_t *ptr, FILE *stream);
 
+/* from parser */
+void parser(char *input_str, char **args);
+
 #define MAX_INPUT_LENGTH 256
 #define BUFF_SIZE 1024
 

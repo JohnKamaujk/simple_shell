@@ -11,17 +11,17 @@ void parser(char *input_str, char **args)
 {
 	char *arg;
 	int i = 0;
-	int is_space_only = 1;
+	int is_space = 1;
 
 	for (i = 0; input_str[i]; i++)
 	{
 		if (!isspace(input_str[i]))
 		{
-			is_space_only = 0;
+			is_space = 0;
 			break;
 		}
 	}
-	if (is_space_only)
+	if (is_space)
 	{
 		args[0] = NULL;
 		return;
@@ -34,6 +34,6 @@ void parser(char *input_str, char **args)
 		arg = strtok(NULL, " ");
 	}
 	args[i] = NULL;
-	if (_strcmp(args[0], "exit") == 0)
+	if (_stringcompare(args[0], "exit") == 0)
 		exit(0);
 }
