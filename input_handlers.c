@@ -6,14 +6,13 @@
  * copy it into a buffer. The fuction should also check for errors
  * in reading, realloc if the input exceeds the buffer and return
  * a count of all it added into the buffer.
- * 
  * @buffsize: set size of buffer allocation
  * @buffer: a pointer to the buffer allocated in main.c
  * @stdin: take input from stdin
  * @user_input: Our indicator that we are in interactive mode.
  * @stat_check: the status check value to see if the last call
  * @program_name: a pointer to the name of our program.
- * 
+ *
  * Return: number of bytes read
  */
 

@@ -52,7 +52,8 @@ int main(int argc, char **argv)
 
 
 /**
- * bultiin_executable - function to match command to builtin and run builtin program
+ * bultiin_executable - function to match command to builtin
+ * and run builtin program
  * or to check if command is an executable program and run that
  * @buffer: input pointer to buffer read to in line_reader
  * @args: input 2D array of tokenized arguments

@@ -8,8 +8,7 @@
  * @returned_status: input status of previous command
  * @lc: current line count
  * @program_name: name of running program/command
- * 
- * all this pointers point to a memory space where data is 
+ * all this pointers point to a memory space where data is
  * stored eitther from user input data or processed data
  * this memory locations must be freed to avoid memory leaks.
  */
@@ -29,13 +28,13 @@ int *returned_status, int lc, char **program_name)
 		malloc_error(program_name);
 	}
 	*returned_status = stat((*path), &buf);
-	if ((*returned_status) != 0 || (Non_Path&& path_trailer))
+	if ((*returned_status) != 0 || (Non_Path && path_trailer))
 	{
 		fail_count++;
 		free(*path);
 		(*path) = path_checker(path_finder(), (*args)[0], fail_count, &path_trailer);
 		*returned_status = stat((*path), &buf);
-		if ((*returned_status) != 0 || (Non_Path&& path_trailer))
+		if ((*returned_status) != 0 || (Non_Path && path_trailer))
 		{
 			count = int2char(lc);
 			write(STDERR, (*program_name), string_length((*program_name)));
@@ -102,7 +101,7 @@ char *int2char(int num)
 
 /**
  * power - a function to return the length of a string
- * @base: a base 
+ * @base: a base
  * @exp: out exponent
  * Return: returns an int
  */
@@ -176,10 +175,10 @@ int executer(char **path, char ***args, char **buffer)
 char **parsers(char *buffer, char *delim)
 {
 	char **args;
-	ssize_t i = 0, arg_counter= 0, j = 0, j_store = 0, arg_size = 0, k = 0;
+	ssize_t i = 0, arg_counter = 0, j = 0, j_store = 0, arg_size = 0, k = 0;
 
-	arg_counter= arg_counting(&buffer, delim);
-	args = malloc(sizeof(char *) * (arg_counter+ 1));
+	arg_counter = arg_counting(&buffer, delim);
+	args = malloc(sizeof(char *) * (arg_counter + 1));
 	if (args == NULL)
 		return (NULL);
 	for (i = 0; i < arg_counter; i++, j++)
@@ -201,7 +200,7 @@ char **parsers(char *buffer, char *delim)
 			args[i][k] = buffer[j];
 		if (j_store != 0)
 		{
-			if (i == (arg_counter- 1) && buffer[j - 1] == '\n')
+			if (i == (arg_counter - 1) && buffer[j - 1] == '\n')
 				k--;
 		}
 		args[i][k] = '\0';

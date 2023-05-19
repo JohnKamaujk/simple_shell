@@ -38,7 +38,7 @@ void malloc_error(char **program_name)
 }
 
 /**
- * error_malexit - prints error message and exits when malloc fails
+ * error_mallocexit - prints error message and exits when malloc fails
  */
 
 void error_mallocexit(void)
