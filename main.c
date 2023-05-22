@@ -1,7 +1,7 @@
 #include "header.h"
 
 /**
- * main - Reads from stdin ,parses and execute.
+ * main - Reads from DATAIN ,parses and execute.
  * @argc: argument count
  * @argv: argument variables
  * Return: 0 (success)
@@ -16,13 +16,13 @@ int main(int argc, char **argv)
 	program_name = string_duplicator(argv[0], program_name);
 	while (1)
 	{
-		if (isatty(STDIN))
+		if (isatty(DATAIN))
 			input_data = prompt_printer(&program_name);
 		signal(SIGINT, &signal_interrupt);
 		buffer = malloc(sizeof(char) * BUFF_SIZE);
 		if (buffer == NULL)
 			malloc_error(&program_name);
-		line_reader(&buffer, &BUFF_SIZE, stdin, input_data, returned_status,
+		line_reader(&buffer, &BUFF_SIZE, DATAIN, input_data, returned_status,
 		 &program_name);
 		while (buffer != NULL)
 		{
@@ -39,9 +39,10 @@ int main(int argc, char **argv)
 					for (; args[i]; i++)
 						free(args[i]);
 				}
+				
 			}
 			buffer = reset(&buffer, &args, spacer, &lc);
-			bultiin_executable(&buffer, &args, &path, &returned_status, &check_path, lc,
+			builtiin_executable(&buffer, &args, &path, &returned_status, &check_path, lc,
 			 &program_name);
 			free_path_args(&path, &check_path, &args);
 		}
@@ -64,11 +65,11 @@ int main(int argc, char **argv)
  * @program_name: name of the running shell program
  */
 
-void bultiin_executable(char **buffer, char ***args, char **path,
+void builtiin_executable(char **buffer, char ***args, char **path,
 int *returned_status, int *check_path, int lc, char **program_name)
 {
 	int i = 0;
-	get_program builtins[] = { {"exit", goodbye}, {"env", printenv},
+	program_data builtins[] = { {"exit", exiter}, {"env", printenv},
 				   {"\n", newline}, {NULL, NULL} };
 
 	for (i = 0; builtins[i].program_name; i++)
@@ -100,7 +101,7 @@ void signal_interrupt(int signal)
 
 	if (signal == SIGINT)
 	{
-		if (isatty(STDIN))
-			write(STDOUT, new_prompt, string_length(new_prompt));
+		if (isatty(DATAIN))
+			write(DATAOUT, new_prompt, string_length(new_prompt));
 	}
 }

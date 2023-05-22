@@ -169,10 +169,10 @@ char **program_name)
 	}
 	while (environ[i] != NULL)
 	{
-		w = write(STDOUT, environ[i], string_length(environ[i]));
+		w = write(DATAOUT, environ[i], string_length(environ[i]));
 		if (w < 0)
 			error_writter();
-		w = write(STDOUT, newline, string_length(newline));
+		w = write(DATAOUT, newline, string_length(newline));
 		if (w < 0)
 			error_writter();
 		i++;

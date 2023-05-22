@@ -79,3 +79,22 @@ char *reset(char **buffer, char ***args, char *delim, int *lc)
 
 	return (newbuffer);
 }
+
+/**
+ * cd -change dir
+ *
+ *  @name: some pointer
+ *
+ */
+void cd(char *name)
+{
+	if (!name)
+	{
+		chdir("/");
+	}
+	else
+	{
+		chdir(name);
+	}
+
+}

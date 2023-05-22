@@ -37,12 +37,12 @@ int *returned_status, int lc, char **program_name)
 		if ((*returned_status) != 0 || (Non_Path && path_trailer))
 		{
 			count = int2char(lc);
-			write(STDERR, (*program_name), string_length((*program_name)));
-			write(STDERR, ": ", 2);
-			write(STDERR, count, string_length(count));
-			write(STDERR, ": ", 2);
-			write(STDERR, (*args)[0], string_length((*args)[0]));
-			write(STDERR, ": not found\n", 12);
+			write(DATAERROR, (*program_name), string_length((*program_name)));
+			write(DATAERROR, ": ", 2);
+			write(DATAERROR, count, string_length(count));
+			write(DATAERROR, ": ", 2);
+			write(DATAERROR, (*args)[0], string_length((*args)[0]));
+			write(DATAERROR, ": not found\n", 12);
 			free(count);
 			*returned_status = 127;
 			return;

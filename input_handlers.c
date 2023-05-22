@@ -2,7 +2,7 @@
 
 
 /**
- * line_reader - is a function meant to read input from STDIN and
+ * line_reader - is a function meant to read input from DATAIN and
  * copy it into a buffer. The fuction should also check for errors
  * in reading, realloc if the input exceeds the buffer and return
  * a count of all it added into the buffer.
@@ -28,7 +28,7 @@ ssize_t line_reader(char **buffer, ssize_t *buffsize, FILE *stdin,
 		free((*buffer));
 		error_readliner(program_name);
 	}
-	rd = read(STDIN, *buffer, *buffsize);
+	rd = read(DATAIN, *buffer, *buffsize);
 	if (rd < 0)
 	{
 		free((*buffer));
@@ -39,14 +39,14 @@ ssize_t line_reader(char **buffer, ssize_t *buffsize, FILE *stdin,
 		free((*program_name));
 		free((*buffer));
 		if (user_input)
-			write(STDOUT, newline, string_length(newline));
+			write(DATAOUT, newline, string_length(newline));
 		exit(stat_check);
 	}
 	count += rd;
 	while (rd == *buffsize && last != '\0' && last != '\n')
 	{
 		*buffer = _realloc(*buffer, count);
-		rd = read(STDIN, &(*buffer)[count], *buffsize);
+		rd = read(DATAIN, &(*buffer)[count], *buffsize);
 		if (rd < 0)
 		{
 			free(*buffer);
@@ -123,14 +123,14 @@ ssize_t arg_counting(char **buffer, char *delim)
 }
 
 /**
- * goodbye - a fucntion to free remaining memory and exit
+ * exiter - a fucntion to free remaining memory and exit
  * @buffer: the user input string from getline
  * @args: the tokenized array of arguments
  * @sts: input status of previous command
  * @program_name: program_name of currently running program
  */
 
-void goodbye(char **buffer, char ***args, int *sts, char **program_name)
+void exiter(char **buffer, char ***args, int *sts, char **program_name)
 {
 	int i;
 

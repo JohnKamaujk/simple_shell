@@ -11,7 +11,7 @@ int prompt_printer(char **program_name)
 	char *prompt = "$ ";
 	ssize_t w = 0;
 
-	w = write(STDOUT, prompt, string_length(prompt));
+	w = write(DATAERROR, prompt, string_length(prompt));
 	if (w < 0)
 	{
 		free((*program_name));
@@ -33,7 +33,7 @@ void malloc_error(char **program_name)
 	char *string = "ENOMEM Out of memory.";
 
 	free((*program_name));
-	write(STDERR, string, string_length(string));
+	write(DATAERROR, string, string_length(string));
 	exit(12);
 }
 
@@ -46,7 +46,7 @@ void error_mallocexit(void)
 	/*Error message from malloc man page, exit status from ENOMEM */
 	char *string = "ENOMEM Out of memory.";
 
-	write(STDERR, string, string_length(string));
+	write(DATAERROR, string, string_length(string));
 }
 
 

@@ -3,39 +3,40 @@
 
 extern char **environ;
 
-/* INCLUDED LIBRARIES */
-#include <stdio.h>
+/* allowed_liblaries */
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <string.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <signal.h>
 
-/* STRUCTS & DEFINITIONS */
-#define STDIN STDIN_FILENO
-#define STDOUT STDOUT_FILENO
-#define STDERR STDERR_FILENO
+
+/* definations and strucks */
+#define DATAERROR STDERR_FILENO
+#define DATAIN STDIN_FILENO
+#define DATAOUT STDOUT_FILENO
 #define last (*buffer)[count - 1]
 #define Non_Path ((*path)[0] != '/' && (*path)[0] != '.' && (*path)[0] != '~')
 #define Non_Delim (buffer[j] != delim[0] && buffer[j] != '\0')
 
 /**
- * struct get_program - matches input command to builtin or sends to execute
+ * struct program_data - matches input command to builtin or sends to execute
  * @program_name: program_name of the built-in or newline
  * @func: function pointer to built-in
  *
  */
 
-typedef struct get_program
+typedef struct program_data
 {
 	char *program_name;
 	void (*func)(char **buffer, char ***args, int *returned_status,
 	char **program_name);
-} get_program;
+} program_data;
 
 
 int string_length(char *s);
@@ -48,14 +49,14 @@ char *_realloc(char *buffer, size_t count);
 char **parsers(char *buffer, char *delim);
 ssize_t arg_counting(char **buffer, char *delim);
 char *reset(char **buffer, char ***args, char *delim, int *lc);
-void find_and_run(char **buffer, char ***args, char **path,
+void builtiin_executable(char **buffer, char ***args, char **path,
 int *returned_status, int *check_path,
 int lc, char **program_name);
 int str_comp(char *s1, char *s2);
 void printenv(char **buffer, char ***args,
 int *returned_status, char **program_name);
 
-void goodbye(char **buffer, char ***args,
+void exiter(char **buffer, char ***args,
 int *returned_status, char **program_name);
 
 void newline(char **buffer, char ***args,
@@ -77,5 +78,6 @@ void malloc_error(char **program_name);
 void error_mallocexit(void);
 void error_readliner(char **program_name);
 void error_writter(void);
+void cd(char *name);
 
 #endif
