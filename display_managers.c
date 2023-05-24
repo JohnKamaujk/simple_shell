@@ -29,8 +29,8 @@ int prompt_printer(char **program_name)
 
 void malloc_error(char **program_name)
 {
-	/* Error message from malloc man page, exit status from ENOMEM */
-	char *string = "ENOMEM Out of memory.";
+
+	char *string = "memory run out.";
 
 	free((*program_name));
 	write(DATAERROR, string, string_length(string));
@@ -43,8 +43,7 @@ void malloc_error(char **program_name)
 
 void error_mallocexit(void)
 {
-	/*Error message from malloc man page, exit status from ENOMEM */
-	char *string = "ENOMEM Out of memory.";
+	char *string = "memory run out";
 
 	write(DATAERROR, string, string_length(string));
 }
@@ -57,9 +56,9 @@ void error_mallocexit(void)
 
 void error_readliner(char **program_name)
 {
-	/*Error message from getline man page, exit status from EINVAL */
+
 	free(program_name);
-	perror("EINVAL Bad arguments\n");
+	perror("bad args\n");
 	exit(22);
 }
 /**
@@ -67,7 +66,7 @@ void error_readliner(char **program_name)
  */
 void error_writter(void)
 {
-	/* Error message from any function with a write() for if the write fails */
-	perror("ERROR: write failed.\n");
+
+	perror("failed!.\n");
 	exit(450);
 }

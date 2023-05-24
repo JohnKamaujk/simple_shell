@@ -39,11 +39,10 @@ int main(int argc, char **argv)
 					for (; args[i]; i++)
 						free(args[i]);
 				}
-				
 			}
 			buffer = reset(&buffer, &args, spacer, &lc);
-			builtiin_executable(&buffer, &args, &path, &returned_status, &check_path, lc,
-			 &program_name);
+			builtiin_executable(&buffer, &args, &path, &returned_status, &check_path,
+			 lc, &program_name);
 			free_path_args(&path, &check_path, &args);
 		}
 		free(buffer);
@@ -57,7 +56,7 @@ int main(int argc, char **argv)
  * and run builtin program
  * or to check if command is an executable program and run that
  * @buffer: input pointer to buffer read to in line_reader
- * @args: input 2D array of tokenized arguments
+ * @args: input array of tokenized arguments
  * @path: input pointer to string to set path to before executing
  * @returned_status: input status of previously run command
  * @check_path: input pointer to variable to indicate if path is set in mem

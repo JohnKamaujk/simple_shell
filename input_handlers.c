@@ -45,7 +45,7 @@ ssize_t line_reader(char **buffer, ssize_t *buffsize, FILE *stdin,
 	count += rd;
 	while (rd == *buffsize && last != '\0' && last != '\n')
 	{
-		*buffer = _realloc(*buffer, count);
+		*buffer = realocater(*buffer, count);
 		rd = read(DATAIN, &(*buffer)[count], *buffsize);
 		if (rd < 0)
 		{
@@ -64,15 +64,16 @@ ssize_t line_reader(char **buffer, ssize_t *buffsize, FILE *stdin,
  * newline - a function to continue the shell without trying to execute program
  * @buffer: buffer with input read into shell
  * @args: 2D array with arguments, including program program_name
- * @sts: input status of previous command
+ * @returned_status: input status of previous command
  * @program_name: program_name of currently running shell program
  */
 
-void newline(char **buffer, char ***args, int *sts, char **program_name)
+void newline(char **buffer, char ***args, int *returned_status,
+char **program_name)
 {
 	(void)buffer;
 	(void)args;
-	(void)sts;
+	(void)returned_status;
 	(void)program_name;
 }
 
@@ -99,7 +100,7 @@ ssize_t arg_counting(char **buffer, char *delim)
 		if (delim[0] == ':' && str_comp((*buffer), "\0") == 0)
 			return (arg_count);
 	}
-	for (i = 0; (*buffer)[i]; i++)
+	while ((*buffer)[i])
 	{
 		if ((*buffer)[i] == '\n' && i != 0)
 		{
@@ -118,6 +119,7 @@ ssize_t arg_counting(char **buffer, char *delim)
 				return (arg_count);
 			}
 		}
+		i++;
 	}
 	return (arg_count);
 }
@@ -126,20 +128,25 @@ ssize_t arg_counting(char **buffer, char *delim)
  * exiter - a fucntion to free remaining memory and exit
  * @buffer: the user input string from getline
  * @args: the tokenized array of arguments
- * @sts: input status of previous command
+ * @returned_status: input status of previous command
  * @program_name: program_name of currently running program
  */
 
-void exiter(char **buffer, char ***args, int *sts, char **program_name)
+void exiter(char **buffer, char ***args, int *returned_status,
+char **program_name)
 {
-	int i;
+	int i = 0;
 
-	for (i = 0; (*args)[i]; i++)
+	while ((*args)[i])
+	{
 		free((*args)[i]);
+		i++;
+	}
 	free((*args)[i]);
 	free((*args));
 	free((*program_name));
 	free((*buffer));
 
-	exit(*sts);
+	exit(*returned_status);
 }
+

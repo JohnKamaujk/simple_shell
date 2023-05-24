@@ -39,13 +39,15 @@ typedef struct program_data
 } program_data;
 
 
+
+
 int string_length(char *s);
 char *string_duplicator(char *input, char *program_name);
 int prompt_printer(char **program_name);
 void signal_interrupt(int signal);
 ssize_t line_reader(char **buffer, ssize_t *buffsize, FILE *stdin,
 		 int user_input, int stat_check, char **program_name);
-char *_realloc(char *buffer, size_t count);
+char *realocater(char *buffer, size_t count);
 char **parsers(char *buffer, char *delim);
 ssize_t arg_counting(char **buffer, char *delim);
 char *reset(char **buffer, char ***args, char *delim, int *lc);
@@ -78,6 +80,6 @@ void malloc_error(char **program_name);
 void error_mallocexit(void);
 void error_readliner(char **program_name);
 void error_writter(void);
-void cd(char *name);
+void c_d(char *name);
 
 #endif

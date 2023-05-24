@@ -68,7 +68,7 @@ int *returned_status, int lc, char **program_name)
 char *int2char(int num)
 {
 	char *string = malloc(sizeof(char) * 10);
-	int i = 0, digits = 0, base = 10, divider, pwr, tmp;
+	int i = 0, digits, base = 10, divider, pwr, tmp;
 
 	if (num == 0)
 		string[i] = '0';
@@ -77,10 +77,10 @@ char *int2char(int num)
 	else if (num > 10)
 	{
 		tmp = num;
-		while (tmp != 0)
+
+		for (digits = 0; tmp != 0; digits++)
 		{
 			tmp /= 10;
-			digits++;
 		}
 		for (pwr = digits; pwr > 0; pwr--, i++)
 		{
@@ -111,8 +111,11 @@ int power(int base, int exp)
 	int i = 1;
 	int result = 1;
 
-	for (i = 1; i < exp; i++)
+	while (i < exp)
+	{
 		result *= base;
+	    i++;
+	}
 
 	return (result);
 }
@@ -175,7 +178,7 @@ int executer(char **path, char ***args, char **buffer)
 char **parsers(char *buffer, char *delim)
 {
 	char **args;
-	ssize_t i = 0, arg_counter = 0, j = 0, j_store = 0, arg_size = 0, k = 0;
+	ssize_t i = 0, arg_counter = 0, j = 0, temp_j = 0, arg_size = 0, k = 0;
 
 	arg_counter = arg_counting(&buffer, delim);
 	args = malloc(sizeof(char *) * (arg_counter + 1));
@@ -183,7 +186,7 @@ char **parsers(char *buffer, char *delim)
 		return (NULL);
 	for (i = 0; i < arg_counter; i++, j++)
 	{
-		for (j_store = j, arg_size = 0; Non_Delim; j++)
+		for (temp_j = j, arg_size = 0; Non_Delim; j++)
 			arg_size++;
 		args[i] = malloc(sizeof(char) * (arg_size + 1));
 		if (args[i] == NULL)
@@ -196,9 +199,9 @@ char **parsers(char *buffer, char *delim)
 			free(args);
 			return (NULL);
 		}
-		for (j = j_store, k = 0; Non_Delim; j++, k++)
+		for (j = temp_j, k = 0; Non_Delim; j++, k++)
 			args[i][k] = buffer[j];
-		if (j_store != 0)
+		if (temp_j != 0)
 		{
 			if (i == (arg_counter - 1) && buffer[j - 1] == '\n')
 				k--;

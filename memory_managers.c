@@ -1,7 +1,7 @@
 #include "header.h"
 
 /**
- * _realloc - a function to double the size of the buffer
+ * realocater - a function to double the size of the buffer
  * if the original buffer runs out of room.
  * @buffer: a buffer allocated in shelly to be filled with
  * @count: a count of how many bytes have been read thus
@@ -10,7 +10,7 @@
  * Return: a pointer with a filed buffer.
  */
 
-char *_realloc(char *buffer, size_t count)
+char *realocater(char *buffer, size_t count)
 {
 	size_t size = count, i = 0;
 	char *newbuff = malloc((2 * size) * sizeof(char));
@@ -30,9 +30,9 @@ char *_realloc(char *buffer, size_t count)
 
 
 /**
- * reset - resets buffer if multiple arguments or commands
- * @buffer: input buffer read to in _getline function
- * @args: input 2D array of arguments for first command
+ * reset - resets buffer
+ * @buffer: input buffer
+ * @args: inputarray of arguments for first command
  * @delim: input string with the delimiter used to set args
  * @lc: pointer to our current line count
  * Return: new pointer to buffer, starts from next command or NULL
@@ -78,23 +78,4 @@ char *reset(char **buffer, char ***args, char *delim, int *lc)
 	free((*buffer));
 
 	return (newbuffer);
-}
-
-/**
- * cd -change dir
- *
- *  @name: some pointer
- *
- */
-void cd(char *name)
-{
-	if (!name)
-	{
-		chdir("/");
-	}
-	else
-	{
-		chdir(name);
-	}
-
 }

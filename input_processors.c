@@ -91,8 +91,12 @@ int fail_count, int *path_trailer)
 	tmpPath = malloc(sizeof(char) * (string_length(command) + 1));
 	if (tmpPath == NULL)
 		error_mallocexit();
-	for (i = 0; command[i]; i++)
+	i = 0;
+	while (command[i])
+	{
 		tmpPath[i] = command[i];
+		i++;
+	}
 	tmpPath[i] = '\0';
 	return (tmpPath);
 }
