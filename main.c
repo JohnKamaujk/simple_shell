@@ -3,8 +3,8 @@
  * handle_exit_command - Handle the "exit" command.
  *
  * @args: array of tokenized arguments
- * @returned_status: pointer to the returned status variable
  */
+
 void handle_exit_command(char **args)
 {
 	if (args[1] != NULL)
