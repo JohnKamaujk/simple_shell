@@ -40,7 +40,7 @@ typedef struct program_data
 
 
 
-
+int _atoi(const char *str);
 int string_length(char *s);
 char *string_duplicator(char *input, char *program_name);
 int prompt_printer(char **program_name);
