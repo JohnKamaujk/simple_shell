@@ -80,3 +80,38 @@ char *reset(char **buffer, char ***args, char *delim, int *lc)
 	return (newbuffer);
 }
 
+/**
+ * _atoi - converts a string to an integer
+ * @str: the string to convert
+ *
+ * Return: the converted integer value
+ */
+
+int _atoi(const char *str)
+{
+	int sign = 1;
+	int result = 0;
+
+	/* Skip leading whitespace */
+	while (*str == ' ' || *str == '\t')
+	{
+		str++;
+	}
+
+	/* Handle optional sign */
+	if (*str == '-' || *str == '+')
+	{
+		sign = (*str == '-') ? -1 : 1;
+		str++;
+	}
+
+	/* Convert digits to integer */
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+
+	return (result * sign);
+}
+
