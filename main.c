@@ -1,9 +1,32 @@
 #include "header.h"
+/**
+ * handle_exit_command - Handle the "exit" command.
+ *
+ * @args: array of tokenized arguments
+ * @returned_status: pointer to the returned status variable
+ */
+void handle_exit_command(char **args)
+{
+	if (args[1] != NULL)
+	{
+		int exit_status = _atoi(args[1]);
+
+		free_args(&args);
+		exit(exit_status);
+	}
+	else
+	{
+		free_args(&args);
+		exit(0);
+	}
+}
 
 /**
- * main - Reads from DATAIN ,parses and execute.
+ * main - Reads from DATAIN, parses, and executes.
+ *
  * @argc: argument count
  * @argv: argument variables
+ *
  * Return: 0 (success)
  */
 int main(int argc, char **argv)
@@ -23,33 +46,31 @@ int main(int argc, char **argv)
 		if (buffer == NULL)
 			malloc_error(&program_name);
 		line_reader(&buffer, &BUFF_SIZE, DATAIN, input_data, returned_status,
-		 &program_name);
+		&program_name);
 		while (buffer != NULL)
 		{
 			lc++;
 			args = parsers(buffer, spacer);
 			if (args == NULL)
 				malloc_error(&program_name);
-			for (i = 1; args[i]; i++)
+			for (i = 0; args[i]; i++)
 			{
 				if (str_comp(args[i], "exit") == 0 || str_comp(args[i], "\nexit") == 0)
 				{
 					free(args[i]);
 					args[i] = NULL;
-					for (; args[i]; i++)
-						free(args[i]);
+					handle_exit_command(args);
 				}
 			}
 			buffer = reset(&buffer, &args, spacer, &lc);
 			builtiin_executable(&buffer, &args, &path, &returned_status, &check_path,
-			 lc, &program_name);
+			lc, &program_name);
 			free_path_args(&path, &check_path, &args);
 		}
 		free(buffer);
 	}
 	return (returned_status);
 }
-
 
 /**
  * bultiin_executable - function to match command to builtin
