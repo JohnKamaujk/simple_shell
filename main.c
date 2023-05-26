@@ -1,25 +1,4 @@
 #include "header.h"
-/**
- * handle_exit_command - Handle the "exit" command.
- *
- * @args: array of tokenized arguments
- */
-
-void handle_exit_command(char **args)
-{
-	if (args[1] != NULL)
-	{
-		int exit_status = _atoi(args[1]);
-
-		free_args(&args);
-		exit(exit_status);
-	}
-	else
-	{
-		free_args(&args);
-		exit(0);
-	}
-}
 
 /**
  * main - Reads from DATAIN, parses, and executes.
@@ -59,7 +38,6 @@ int main(int argc, char **argv)
 				{
 					free(args[i]);
 					args[i] = NULL;
-					handle_exit_command(args);
 				}
 			}
 			buffer = reset(&buffer, &args, spacer, &lc);
