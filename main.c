@@ -1,10 +1,10 @@
 #include "header.h"
 
 /**
- * main - Reads from DATAIN ,parses and execute.
- * @argc: argument count
- * @argv: argument variables
- * Return: 0 (success)
+ * main - Reads from DATAIN, parses, and executes commands.
+ * @argc: Argument count.
+ * @argv: Argument variables.
+ * Return: 0 (success).
  */
 int main(int argc, char **argv)
 {
@@ -12,8 +12,10 @@ int main(int argc, char **argv)
 	char *buffer, *path, **args, *spacer = " ";
 	ssize_t BUFF_SIZE = 1024;
 	int input_data = 0, check_path = 0, returned_status = 0, lc = 0, i = 0;
+
 	(void)argc;
 	program_name = string_duplicator(argv[0], program_name);
+
 	while (1)
 	{
 		if (isatty(DATAIN))
@@ -23,44 +25,60 @@ int main(int argc, char **argv)
 		if (buffer == NULL)
 			malloc_error(&program_name);
 		line_reader(&buffer, &BUFF_SIZE, DATAIN, input_data, returned_status,
-		 &program_name);
+			    &program_name);
+
 		while (buffer != NULL)
 		{
 			lc++;
 			args = parsers(buffer, spacer);
 			if (args == NULL)
 				malloc_error(&program_name);
-			for (i = 1; args[i]; i++)
+
+			for (i = 0; args[i]; i++)
 			{
 				if (str_comp(args[i], "exit") == 0 || str_comp(args[i], "\nexit") == 0)
 				{
 					free(args[i]);
 					args[i] = NULL;
-					for (; args[i]; i++)
-						free(args[i]);
+					if (args[i + 1] != NULL)
+					{
+						int exit_status = _atoi(args[i + 1]);
+						free_args(&args);
+						exit(exit_status);
+					}
+					else
+					{
+						free_args(&args); 
+						exit(0);
+					}
 				}
 			}
+
+
 			buffer = reset(&buffer, &args, spacer, &lc);
 			builtiin_executable(&buffer, &args, &path, &returned_status, &check_path,
-			 lc, &program_name);
+					    lc, &program_name);
 			free_path_args(&path, &check_path, &args);
 		}
+
 		free(buffer);
 	}
+
 	return (returned_status);
 }
+
 
 
 /**
  * bultiin_executable - function to match command to builtin
  * and run builtin program
- * or to check if command is an executable program and run that
- * @buffer: input pointer to buffer read to in line_reader
- * @args: input array of tokenized arguments
- * @path: input pointer to string to set path to before executing
+ * 
+ * @buffer: pointer to line_reader buffer
+ * @args: array of tokenized arguments from line_reader
+ * @path: points to string set in path
  * @returned_status: input status of previously run command
- * @check_path: input pointer to variable to indicate if path is set in mem
- * @lc: input integer of line count
+ * @check_path: pointer confirming path is set in memory
+ * @lc: line count
  * @program_name: name of the running shell program
  */
 
@@ -89,9 +107,9 @@ int *returned_status, int *check_path, int lc, char **program_name)
 }
 
 /**
- * signal_interrupt - catches Ctrl+C and, instead of stopping shell,
-* it writes a newline and prompts the user again
-* @signal: input signal to confirm is SIGINT
+ * signal_interrupt - handles CTRL+C and prompts input
+ * 
+ * @signal: confirms it is SIGINT
 */
 
 void signal_interrupt(int signal)

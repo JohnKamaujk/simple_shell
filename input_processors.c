@@ -2,6 +2,7 @@
 
 /**
  * path_finder - finds and breaks a path into an array of directories.
+ *
  * Return: a pointer to the current path.
  */
 
