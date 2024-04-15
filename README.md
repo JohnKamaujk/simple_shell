@@ -122,7 +122,7 @@ Style guidelines: [Betty style](https://github.com/holbertonschool/Betty/wiki)
 
 ## Installation
 
-- Clone this repository: `git clone "https://github.com/ralexrivero/simple_shell"`
+- Clone this repository: `git clone "https://github.com/JohnKamaujk/simple_shell"`
 - Change directories into the repository: `cd simple_shell`
 - Compile: `gcc -Wall -Werror -Wextra -pedantic *.c -o hsh`
 - Run the shell in interactive mode: `./hsh`
@@ -202,9 +202,9 @@ Not known bugs at the moment
 
 John Kamau
 
-<a href="https://www.linkedin.com/in/ayrton-coelho-b91824170/" target="_blank">  <img align="left" alt="Ayrton Coelho | LinkedIn" src="https://img.shields.io/badge/LinkedIn-blue?style=social&logo=linkedin" /> </a>
+<a href="https://www.linkedin.com/in/john-kamau-000676231" target="_blank">  <img align="left" alt="Ayrton Coelho | LinkedIn" src="https://img.shields.io/badge/LinkedIn-blue?style=social&logo=linkedin" /> </a>
 
-<a href="https://github.com/hippocampus3282/" target="_blank">  <img align="left" src="https://img.shields.io/github/followers/hippocampus3282?style=social" alt="Ayrton | Github"> </a>
+<a href="https://github.com/JohnKamaujk" target="_blank">  <img align="left" src="https://img.shields.io/github/followers/hippocampus3282?style=social" alt="Ayrton | Github"> </a>
 <br/>
 
 ## License
